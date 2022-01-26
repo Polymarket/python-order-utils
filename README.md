@@ -4,7 +4,7 @@ Python utilities used to generate and sign limit and market orders on Polymarket
 
 ### Virtual env
 
-Create the virtual env
+Create a virtual env
 
 `python -m venv .venv`
 
