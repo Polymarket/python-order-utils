@@ -3,6 +3,9 @@ from py_order_utils.facades.base_facade import BaseFacade
 
 
 class Erc20Facade(BaseFacade):
+    """
+    Facade for ERC20 transfers and balance
+    """
     
     ABIS = {"erc20": "abi/ERC20ABI.json"}
     transferFrom = "transferFrom"

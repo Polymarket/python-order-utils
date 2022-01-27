@@ -4,7 +4,7 @@ from py_order_utils.utils import normalize_address
 
 class Erc1155Facade(BaseFacade):
     """
-    Facade tool for ERC1155 transfers and balance checking
+    Facade for ERC1155 transfers and balance
     """
     ABIS = {"erc1155": "abi/ERC1155ABI.json", "lop": "abi/LimitOrderProtocol.json"}
     transferFrom = "func_733NCGU"
