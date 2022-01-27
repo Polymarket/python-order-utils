@@ -1,16 +1,15 @@
-"""
-Limit order builder
-"""
 
+
+from signer import Signer
 
 class LimitOrderBuilder:
+    """
+    Limit order builder
+    """
 
-    def __init__(self):
-        """
-        """
-        pass
+    # TODO: a lot lmao
+    def __init__(self, signer: Signer):
+        self.signer = signer
 
-    def hello(self):
-        return "hello"
-
+    
 
