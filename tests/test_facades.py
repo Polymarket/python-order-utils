@@ -1,8 +1,7 @@
 from unittest import TestCase
 
 import web3
-from py_order_utils.facades.erc20_facade import Erc20Facade
-from py_order_utils.facades.erc1155_facade import Erc1155Facade
+from py_order_utils.facades import Erc20Facade, Erc1155Facade , LimitOrderProtocolFacade
 
 class TestFacade(TestCase):
 
@@ -26,7 +25,7 @@ class TestFacade(TestCase):
         
         self.assertEqual(expected, self.erc20_facade.transfer_from(from_address, to_address, value))
 
-    def test_balance_of(self):
+    def test_erc1155_balance_of(self):
         address = "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B"
         token_id = 0
         # Expected input data generated using ethers
@@ -34,7 +33,7 @@ class TestFacade(TestCase):
 
         self.assertEqual(expected, self.erc1155_facade.balance_of(address, token_id))
 
-    def test_transfer_from(self):
+    def test_erc1155_transfer_from(self):
         from_address = "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B"
         to_address = "0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6"
         value = web3.Web3.toWei(100, 'ether')
