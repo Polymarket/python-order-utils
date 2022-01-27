@@ -1,15 +1,6 @@
 from typing import List
-import web3
 from py_order_utils.utils import normalize_address
 from py_order_utils.facades.base_facade import BaseFacade
-"""
-Limit order protocol facade should expose the following functions:
-and
-nonceEquals
-timestampBelow
-getMakerAmount
-getTakerAmount 
-"""
 
 # TODO: for now will implement only the methods in the ABI that are being used
 # Can add the rest later
@@ -20,8 +11,8 @@ class LimitOrderProtocolFacade(BaseFacade):
     
     ABIS = {"lop": "abi/LimitOrderProtocol.json"}
 
-    def __init__(self, contract_address: str, contract_to_abi):
-        super().__init__(contract_to_abi)
+    def __init__(self, contract_address: str):
+        super().__init__(self.ABIS)
         self.contract_address = normalize_address(contract_address)
 
     def lop_and(self, predicates: List[str]):
@@ -60,19 +51,19 @@ class LimitOrderProtocolFacade(BaseFacade):
             ]
         )
 
-    def get_maker_amount_data(self, maker_amount, taker_amount:str):
+    def get_maker_amount_data(self, maker_amount, taker_amount:int):
         """
         function getMakerAmount(uint256 orderMakerAmount, uint256 orderTakerAmount, uint256 swapTakerAmount) external pure returns(uint256)
         """
         return self._get_amount_data("getMakerAmount", maker_amount, taker_amount)
 
-    def get_taker_amount_data(self, maker_amount, taker_amount:str):
+    def get_taker_amount_data(self, maker_amount, taker_amount:int):
         """
         function getTakerAmount(uint256 orderMakerAmount, uint256 orderTakerAmount, uint256 swapMakerAmount) external pure returns(uint256)
         """
         return self._get_amount_data("getTakerAmount", maker_amount, taker_amount)
 
-    def _get_amount_data(self, method, maker_amount, taker_amount: str, swap_taker_amount="0"):
+    def _get_amount_data(self, method, maker_amount, taker_amount: int, swap_taker_amount=0):
         raw_amount_data = self._get_contract("lop").encodeABI(
             fn_name=method, 
             args=[
