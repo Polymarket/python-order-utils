@@ -1,9 +1,7 @@
 from py_order_utils.model.model import LimitOrder, LimitOrderData
-from signer import Signer
+from py_order_utils.signer import Signer
 from py_order_utils.facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
-from py_order_utils.utils import max_int, rand_int
-
-
+from py_order_utils.utils import rand_int
 
 
 class LimitOrderBuilder:

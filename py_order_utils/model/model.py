@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from py_order_utils.constants import ZERO_ADDRESS, ZX, SignatureType
+from py_order_utils.constants import ZERO_ADDRESS, ZX
+from py_order_utils.model.signatures import SignatureType
 
 @dataclass
 class LimitOrderData:
