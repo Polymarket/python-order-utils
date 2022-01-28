@@ -8,8 +8,6 @@ class Erc20Facade(BaseFacade):
     """
     
     ABIS = {"erc20": "abi/ERC20ABI.json"}
-    transferFrom = "transferFrom"
-    balanceOf = "balanceOf"
 
     def __init__(self):
         super().__init__(self.ABIS)
@@ -18,7 +16,7 @@ class Erc20Facade(BaseFacade):
         """
         Creates transaction data for an ERC20 transferFrom
         """
-        return self._get_contract("erc20").encodeABI(fn_name=self.transferFrom, 
+        return self._get_contract("erc20").encodeABI(fn_name="transferFrom", 
         args=[
             normalize_address(from_address), 
             normalize_address(to_address), 
@@ -30,4 +28,4 @@ class Erc20Facade(BaseFacade):
         """
         Creates transaction data for an ERC20 balanceOf
         """
-        return self._get_contract("erc20").encodeABI(fn_name=self.balanceOf, args=[normalize_address(address)])
+        return self._get_contract("erc20").encodeABI(fn_name="balanceOf", args=[normalize_address(address)])

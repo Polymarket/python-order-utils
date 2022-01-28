@@ -11,18 +11,17 @@ class LimitOrderProtocolFacade(BaseFacade):
     
     ABIS = {"lop": "abi/LimitOrderProtocol.json"}
 
-    def __init__(self, contract_address: str):
+    def __init__(self):
         super().__init__(self.ABIS)
-        self.contract_address = normalize_address(contract_address)
 
-    def lop_and(self, predicates: List[str]):
+    def lop_and(self, contract_address: str, predicates: List[str]):
         """
         function and(address[] calldata targets, bytes[] calldata data)
         """
         return self._get_contract("lop").encodeABI(
             fn_name="and", 
             args=[
-                [self.contract_address for _ in predicates],
+                [normalize_address(contract_address) for _ in predicates],
                 predicates,
             ]
         )

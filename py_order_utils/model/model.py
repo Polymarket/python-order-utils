@@ -1,5 +1,30 @@
 from dataclasses import dataclass
 
+from py_order_utils.constants import ZERO_ADDRESS, ZX, SignatureType
+
+@dataclass
+class LimitOrderData:
+    """
+    Inputs to generate Limit orders
+    """
+    exchange_address: str = None
+    maker_asset_address: str = None
+    maker_asset_id: int = None
+    taker_asset_address: str = None
+    taker_asset_id: int = None
+    maker_address: str = None
+    taker_address: str = ZERO_ADDRESS
+    maker_amount: int = None
+    taker_amount: int = None
+    expiry: int = None
+    nonce: int = None
+    signer: str = None
+    sig_type: SignatureType = SignatureType.EOA # Default to EOA sig type
+    predicate: str = ZX
+    permit: str = ZX
+    interaction: str = ZX
+
+
 @dataclass
 class LimitOrder:
     """
