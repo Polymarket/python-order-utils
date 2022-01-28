@@ -1,7 +1,7 @@
 from py_order_utils.model.model import LimitOrder, LimitOrderData
 from py_order_utils.signer import Signer
 from py_order_utils.facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
-from py_order_utils.utils import rand_int
+from py_order_utils.utils import generate_seed
 
 
 class LimitOrderBuilder:
@@ -35,7 +35,7 @@ class LimitOrderBuilder:
                 data.maker_amount
             )
         else:
-            maker_asset = data.maker_asset_address;
+            maker_asset = data.maker_asset_address
             maker_asset_data = self.erc20_facade.transfer_from(
                 data.maker_address,
                 data.taker_address,
@@ -45,9 +45,9 @@ class LimitOrderBuilder:
         if data.taker_asset_id is not None:
             taker_asset = data.exchange_address
             taker_asset_data = self.erc1155_facade.transfer_from(
-                data.taker_asset_address,
                 data.taker_address,
                 data.maker_address,
+                data.taker_asset_address,
                 data.taker_asset_id,
                 data.taker_amount
             )
@@ -66,16 +66,13 @@ class LimitOrderBuilder:
                     self.lop_facade.nonce_equals(data.maker_address, data.nonce)
                 ]
             )
-        print("Predicate: {}".format(predicate))
-        
         signer = data.signer if data.signer is not None else data.maker_address
-        print("signer: {}".format(signer))
 
         get_maker_amount = self.lop_facade.get_maker_amount_data(data.maker_amount, data.taker_amount)
         get_taker_amount = self.lop_facade.get_taker_amount_data(data.maker_amount, data.taker_amount)
 
         return LimitOrder(
-            salt=rand_int(),
+            salt=generate_seed(),
             makerAsset=maker_asset,
             takerAsset=taker_asset,
             makerAssetData=maker_asset_data,
@@ -99,7 +96,9 @@ class LimitOrderBuilder:
             data.maker_amount is None or
             data.taker_amount is None or
             # both maker and taker asset ids cannot be None
-            (data.maker_asset_id is None and data.taker_asset_id is None)
+            (data.maker_asset_id is None and data.taker_asset_id is None) or
+            # ensure that the exchange address is the same as the provided contract address
+            data.exchange_address != self.contract_address
         )
 
     

@@ -1,7 +1,8 @@
 import math
 import web3
-from secrets import randbelow
 from string import punctuation
+from random import random
+from datetime import datetime, timezone
 
 max_int = math.pow(2, 32)
 
@@ -14,8 +15,9 @@ def normalize(s: str)-> str:
 def normalize_address(address: str) -> str:
     return web3.Web3.toChecksumAddress(address)
 
-def rand_int()-> int:
+def generate_seed()-> int:
     """
-    Cryptographically secure randInt
+    Pseudo random seed
     """
-    return randbelow(max_int)
+    now = datetime.now().replace(tzinfo=timezone.utc).timestamp()
+    return round(now * random()) 

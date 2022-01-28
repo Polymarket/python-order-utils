@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from py_order_utils.constants import ZERO_ADDRESS, ZX
-from py_order_utils.model.signatures import SignatureType
+from py_order_utils.model.signatures import EOA
 
 @dataclass
 class LimitOrderData:
@@ -20,7 +20,7 @@ class LimitOrderData:
     expiry: int = None
     nonce: int = None
     signer: str = None
-    sig_type: SignatureType = SignatureType.EOA # Default to EOA sig type
+    sig_type: int = EOA
     predicate: str = ZX
     permit: str = ZX
     interaction: str = ZX
