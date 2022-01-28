@@ -1,7 +1,8 @@
-from py_order_utils.model.model import LimitOrder, LimitOrderData
-from py_order_utils.signer import Signer
-from py_order_utils.facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
-from py_order_utils.utils import generate_seed
+from ..model.model import LimitOrder, LimitOrderData
+from ..signer import Signer
+from ..facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
+from ..utils import generate_seed
+from .eip_712_constants import EIP_712_DOMAIN, NAME, ORDER_STRUCTURE, VERSION
 
 
 class LimitOrderBuilder:
@@ -85,6 +86,30 @@ class LimitOrderBuilder:
             signer=signer,
             sigType=data.sig_type
         )
+
+
+    def build_limit_order_typed_data(self, limit_order: LimitOrder):
+        """
+        """
+
+        
+        # return {
+        #     "primaryType": "LimitOrder",
+        #     "types": {
+        #         "EIP712Domain": EIP_712_DOMAIN,
+        #         "LimitOrder": ORDER_STRUCTURE,
+        #     },
+        #     "domain": {
+        #         "name": NAME,
+        #         "version": VERSION,
+        #         "chainId": self.chainId,
+        #         "verifyingContract": self.contract_address,
+        #     },
+        #     "message": limit_order,
+        # }
+        pass
+
+
 
     def _validate_inputs(self, data:LimitOrderData)-> bool:
         return not (

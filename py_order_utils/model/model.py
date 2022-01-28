@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from py_order_utils.constants import ZERO_ADDRESS, ZX
-from py_order_utils.model.signatures import EOA
+from ..constants import ZERO_ADDRESS, ZX
+from .signatures import EOA
 
 @dataclass
 class LimitOrderData:

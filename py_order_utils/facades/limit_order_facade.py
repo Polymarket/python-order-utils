@@ -1,9 +1,8 @@
 from typing import List
-from py_order_utils.utils import normalize_address
-from py_order_utils.facades.base_facade import BaseFacade
+from ..utils import normalize_address
+from .base_facade import BaseFacade
 
-# TODO: for now will implement only the methods in the ABI that are being used
-# Can add the rest later
+
 class LimitOrderProtocolFacade(BaseFacade):
     """
     Limit Order protocol facade

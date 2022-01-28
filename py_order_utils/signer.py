@@ -6,12 +6,12 @@ class Signer:
     """
 
     def __init__(self, key: str):
-        self.key = key
+        self._key = key
         self.address = eth_account.Account.from_key(key).address
     
-    def sign(self, message_hash):
+    def sign(self, struct_hash):
         """
-        TODO: signs an EIP712 message
+        Signs an EIP712 struct hash
         """
 
         raise NotImplementedError()

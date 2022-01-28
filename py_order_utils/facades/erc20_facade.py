@@ -1,5 +1,5 @@
-from py_order_utils.utils import normalize_address
-from py_order_utils.facades.base_facade import BaseFacade
+from ..utils import normalize_address
+from .base_facade import BaseFacade
 
 
 class Erc20Facade(BaseFacade):

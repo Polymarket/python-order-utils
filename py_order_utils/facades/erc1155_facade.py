@@ -1,6 +1,6 @@
 import web3
-from py_order_utils.facades.base_facade import BaseFacade
-from py_order_utils.utils import normalize_address
+from .base_facade import BaseFacade
+from ..utils import normalize_address
 
 class Erc1155Facade(BaseFacade):
     """
