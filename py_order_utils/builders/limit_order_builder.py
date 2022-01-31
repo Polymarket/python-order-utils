@@ -1,42 +1,31 @@
 from web3 import Web3
-from ..model.model import LimitOrder, LimitOrderData
+
 from ..signer import Signer
+from .base_builder import BaseBuilder
+from .exception import ValidationException
+from ..utils import generate_seed, normalize_address
+from ..model.model import LimitOrder, LimitOrderData
 from ..facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
-from ..utils import generate_seed, hash_bytes, hash_string, normalize_address
-from eth_account.messages import encode_structured_data, encode_defunct
-from eip712_structs import make_domain
 
 
-class LimitOrderBuilder:
+class LimitOrderBuilder(BaseBuilder):
     """
     Limit order builder
     """
     
     def __init__(self, exchange_address: str, chain_id: int, signer: Signer):
-        self.contract_address = normalize_address(exchange_address)
-        self.signer = signer
-        self.chain_id = chain_id
-        self.domain_separator = self._get_domain_separator(self.chain_id, self.contract_address)
+        super().__init__(exchange_address, chain_id, signer)
         self.erc20_facade = Erc20Facade()
         self.erc1155_facade = Erc1155Facade()
         self.lop_facade = LimitOrderProtocolFacade()
         # TODO: add logger
-
-    def _get_domain_separator(self, chain_id: int, verifying_contract: str)-> str:
-        return make_domain(
-            name="1inch Limit Order Protocol",
-            version="1",
-            chainId=str(chain_id),
-            verifyingContract=verifying_contract,
-        )
- 
 
     def build_limit_order(self, data: LimitOrderData)-> LimitOrder:
         """
         Builds a limit order
         """
         if not self._validate_inputs(data):
-            raise Exception("Invalid limit order inputs")
+            raise ValidationException("Invalid limit order inputs")
         
         if data.maker_asset_id is not None:
             maker_asset = data.exchange_address
@@ -104,8 +93,7 @@ class LimitOrderBuilder:
         """
         Signs the Limit order
         """
-        struct_hash = self._create_struct_hash(limit_order)
-        return self.signer.sign(struct_hash)
+        return self.sign(self._create_struct_hash(limit_order))
                 
        
     def _create_struct_hash(self, limit_order: LimitOrder):

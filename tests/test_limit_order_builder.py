@@ -1,7 +1,7 @@
 from unittest import TestCase, mock
+from py_order_utils.builders.exception import ValidationException
 from py_order_utils.model.model import LimitOrder, LimitOrderData
 from py_order_utils.builders import LimitOrderBuilder
-from py_order_utils.signer import Signer
 
 
 class TestLimitOrderBuilder(TestCase):
@@ -32,7 +32,14 @@ class TestLimitOrderBuilder(TestCase):
 
     def test_build_limit_order(self):
         lop_builder = LimitOrderBuilder("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", 1, mock.MagicMock())
+
+        invalid_data_input = self.generate_data()
+        invalid_data_input.exchange_address = "0x0000000000000000000000000000000000000000"
         
+        # throw if invalid limit order input
+        with self.assertRaises(ValidationException):
+            lop_builder.build_limit_order(invalid_data_input)
+
         limit_order = lop_builder.build_limit_order(self.generate_data())
         
         # Ensure correct values on limit order

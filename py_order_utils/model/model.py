@@ -44,21 +44,36 @@ class LimitOrder(EIP712Struct):
     interaction = Bytes()
     signer= Address()
     sigType = Uint(256)
-    
-@dataclass
-class MarketOrder:
+
+
+class MarketOrderData:
     """
-    Market Order object
+    Inputs to generate Market orders
     """
-    salt: str
-    maker: str
-    makerAsset: str
-    makerAmount: str
-    makerAssetID: int
-    takerAsset: str
-    takerAssetID: int
-    signer: str
-    sigType: int
+    salt: int = None
+    exchange_address: str = None
+    maker_asset_address: str = None
+    maker_asset_id: int = None
+    taker_asset_address: str = None
+    taker_asset_id: int = None
+    maker_address: str = None
+    maker_amount: int = None
+    signer: str = None
+    sig_type: int = EOA
+
+class MarketOrder(EIP712Struct):
+    """
+    Market Order
+    """
+    salt = Uint(256)
+    maker = Address()
+    makerAsset = Address()
+    makerAmount = Uint(256)
+    makerAssetID = Uint(256)
+    takerAsset = Address()
+    takerAssetID = Uint(256)
+    signer= Address()
+    sigType = Uint(256)
     
 
 @dataclass
