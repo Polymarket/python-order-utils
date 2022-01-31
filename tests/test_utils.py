@@ -1,9 +1,8 @@
-import unittest
-from unittest import mock
+from unittest import TestCase
 from py_order_utils.utils import normalize_address
 
 
-class TestUtils(unittest.TestCase):
+class TestUtils(TestCase):
 
     def test_normalize_address(self):
         self.assertEqual(

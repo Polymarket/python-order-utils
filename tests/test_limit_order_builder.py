@@ -1,7 +1,6 @@
 from unittest import TestCase, mock
+from py_order_utils.model.model import LimitOrderData
 from py_order_utils.builders import LimitOrderBuilder
-from py_order_utils.model.model import LimitOrder, LimitOrderData
-from py_order_utils.signer import Signer
 
 
 class TestLimitOrderBuilder(TestCase):
@@ -100,5 +99,5 @@ class TestLimitOrderBuilder(TestCase):
             expiry=1643450783,
             nonce=0
         )
-        
+
 

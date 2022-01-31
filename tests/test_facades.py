@@ -1,13 +1,11 @@
-from this import d
-from unittest import TestCase
-
 import web3
+from unittest import TestCase
 from py_order_utils.facades import Erc20Facade, Erc1155Facade , LimitOrderProtocolFacade
 
 
 class TestFacade(TestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.erc20_facade = Erc20Facade()
         self.erc1155_facade = Erc1155Facade()
         self.lop_facade = LimitOrderProtocolFacade()
