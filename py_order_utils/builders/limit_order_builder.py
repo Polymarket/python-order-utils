@@ -1,8 +1,10 @@
+from web3 import Web3
 from ..model.model import LimitOrder, LimitOrderData
 from ..signer import Signer
 from ..facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
-from ..utils import generate_seed
-from .eip_712_constants import EIP_712_DOMAIN, NAME, ORDER_STRUCTURE, VERSION
+from ..utils import generate_seed, hash_bytes, hash_string, normalize_address
+from eth_account.messages import encode_structured_data, encode_defunct
+from eip712_structs import make_domain
 
 
 class LimitOrderBuilder:
@@ -11,12 +13,22 @@ class LimitOrderBuilder:
     """
     
     def __init__(self, exchange_address: str, chain_id: int, signer: Signer):
-        self.contract_address = exchange_address
+        self.contract_address = normalize_address(exchange_address)
         self.signer = signer
         self.chain_id = chain_id
+        self.domain_separator = self._get_domain_separator(self.chain_id, self.contract_address)
         self.erc20_facade = Erc20Facade()
         self.erc1155_facade = Erc1155Facade()
         self.lop_facade = LimitOrderProtocolFacade()
+        # TODO: add logger
+
+    def _get_domain_separator(self, chain_id: int, verifying_contract: str)-> str:
+        return make_domain(
+            name="1inch Limit Order Protocol",
+            version="1",
+            chainId=str(chain_id),
+            verifyingContract=verifying_contract,
+        )
  
 
     def build_limit_order(self, data: LimitOrderData)-> LimitOrder:
@@ -73,7 +85,7 @@ class LimitOrderBuilder:
         get_taker_amount = self.lop_facade.get_taker_amount_data(data.maker_amount, data.taker_amount)
 
         return LimitOrder(
-            salt=generate_seed(),
+            salt=data.salt if data.salt else generate_seed(),
             makerAsset=maker_asset,
             takerAsset=taker_asset,
             makerAssetData=maker_asset_data,
@@ -88,28 +100,19 @@ class LimitOrderBuilder:
         )
 
 
-    def build_limit_order_typed_data(self, limit_order: LimitOrder):
+    def build_limit_order_signature(self, limit_order: LimitOrder):
         """
+        Signs the Limit order
         """
-
-        
-        # return {
-        #     "primaryType": "LimitOrder",
-        #     "types": {
-        #         "EIP712Domain": EIP_712_DOMAIN,
-        #         "LimitOrder": ORDER_STRUCTURE,
-        #     },
-        #     "domain": {
-        #         "name": NAME,
-        #         "version": VERSION,
-        #         "chainId": self.chainId,
-        #         "verifyingContract": self.contract_address,
-        #     },
-        #     "message": limit_order,
-        # }
-        pass
-
-
+        struct_hash = self._create_struct_hash(limit_order)
+        return self.signer.sign(struct_hash)
+                
+       
+    def _create_struct_hash(self, limit_order: LimitOrder):
+        """
+        Creates an EIP712 compliant struct hash for the Limit Order
+        """
+        return Web3.keccak(limit_order.signable_bytes(domain=self.domain_separator))
 
     def _validate_inputs(self, data:LimitOrderData)-> bool:
         return not (
@@ -123,7 +126,7 @@ class LimitOrderBuilder:
             # both maker and taker asset ids cannot be None
             (data.maker_asset_id is None and data.taker_asset_id is None) or
             # ensure that the exchange address is the same as the provided contract address
-            data.exchange_address != self.contract_address
+            normalize_address(data.exchange_address) != self.contract_address
         )
 
     

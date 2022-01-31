@@ -2,12 +2,14 @@ from dataclasses import dataclass
 
 from ..constants import ZERO_ADDRESS, ZX
 from .signatures import EOA
+from eip712_structs import Address, Bytes, EIP712Struct, Uint
 
 @dataclass
 class LimitOrderData:
     """
     Inputs to generate Limit orders
     """
+    salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
     maker_asset_id: int = None
@@ -26,23 +28,22 @@ class LimitOrderData:
     interaction: str = ZX
 
 
-@dataclass
-class LimitOrder:
+class LimitOrder(EIP712Struct):
     """
     Limit Order
     """
-    salt: int
-    makerAsset: str 
-    takerAsset: str
-    makerAssetData: str
-    takerAssetData: str 
-    getMakerAmount: str
-    getTakerAmount: str
-    predicate: str
-    permit: str
-    interaction: str
-    signer: str
-    sigType: int
+    salt = Uint(256)
+    makerAsset = Address() 
+    takerAsset = Address()
+    makerAssetData = Bytes()
+    takerAssetData = Bytes()
+    getMakerAmount = Bytes()
+    getTakerAmount = Bytes()
+    predicate = Bytes()
+    permit = Bytes()
+    interaction = Bytes()
+    signer= Address()
+    sigType = Uint(256)
     
 @dataclass
 class MarketOrder:

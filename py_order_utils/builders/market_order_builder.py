@@ -1,6 +1,4 @@
-"""
-Market order builder
-"""
+
 
 class MarketOrderBuilder:
 
