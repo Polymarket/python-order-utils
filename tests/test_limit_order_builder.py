@@ -2,6 +2,7 @@ from unittest import TestCase, mock
 from py_order_utils.builders.exception import ValidationException
 from py_order_utils.model.model import LimitOrder, LimitOrderData
 from py_order_utils.builders import LimitOrderBuilder
+from py_order_utils.model.signatures import EOA
 
 
 class TestLimitOrderBuilder(TestCase):
@@ -89,7 +90,7 @@ class TestLimitOrderBuilder(TestCase):
         )
 
         self.assertEqual(
-            0,
+            EOA,
             limit_order["sigType"]
         )
 

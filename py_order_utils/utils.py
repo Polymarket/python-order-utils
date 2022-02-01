@@ -34,4 +34,3 @@ def solidity_keccak(typ, val):
         values=[val],
     )
 
-    

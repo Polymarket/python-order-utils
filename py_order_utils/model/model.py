@@ -46,6 +46,7 @@ class LimitOrder(EIP712Struct):
     sigType = Uint(256)
 
 
+@dataclass
 class MarketOrderData:
     """
     Inputs to generate Market orders
@@ -65,14 +66,15 @@ class MarketOrder(EIP712Struct):
     """
     Market Order
     """
+    # NOTE: Important to keep in mind, fields are ordered
     salt = Uint(256)
+    signer = Address()
     maker = Address()
     makerAsset = Address()
     makerAmount = Uint(256)
     makerAssetID = Uint(256)
     takerAsset = Address()
     takerAssetID = Uint(256)
-    signer= Address()
     sigType = Uint(256)
     
 

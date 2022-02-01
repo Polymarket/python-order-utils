@@ -10,6 +10,7 @@ class MarketOrderBuilder(BaseBuilder):
     def __init__(self, exchange_address: str, chain_id: int, signer: Signer):
         super().__init__(exchange_address, chain_id, signer)
 
+
     def build_market_order(self, data: MarketOrderData)-> MarketOrder:
         """
         Builds a market order
@@ -24,7 +25,7 @@ class MarketOrderBuilder(BaseBuilder):
 
         return MarketOrder(
             salt=data.salt if data.salt else generate_seed(),
-            maker = data.maker_address(),
+            maker = data.maker_address,
             makerAsset = data.maker_asset_address,
             makerAmount = data.maker_amount,
             makerAssetID = maker_asset_id,
@@ -33,12 +34,12 @@ class MarketOrderBuilder(BaseBuilder):
             signer= signer,
             sigType = data.sig_type
         )
-        
 
     def build_market_order_signature(self, mkt_order: MarketOrder):
         """
+        Signs a market order
         """
-        pass
+        return self.sign(self._create_struct_hash(mkt_order))
 
     def _validate_inputs(self, data: MarketOrderData)->bool:
         return not (

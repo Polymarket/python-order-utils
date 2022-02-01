@@ -1,5 +1,4 @@
 from web3 import Web3
-
 from ..signer import Signer
 from .base_builder import BaseBuilder
 from .exception import ValidationException
@@ -94,13 +93,6 @@ class LimitOrderBuilder(BaseBuilder):
         Signs the Limit order
         """
         return self.sign(self._create_struct_hash(limit_order))
-                
-       
-    def _create_struct_hash(self, limit_order: LimitOrder):
-        """
-        Creates an EIP712 compliant struct hash for the Limit Order
-        """
-        return Web3.keccak(limit_order.signable_bytes(domain=self.domain_separator))
 
     def _validate_inputs(self, data:LimitOrderData)-> bool:
         return not (
