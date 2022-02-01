@@ -1,0 +1,3 @@
+EOA = 0
+CONTRACT = 1
+POLY_PROXY = 2
