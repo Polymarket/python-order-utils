@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import json
 
 from ..constants import ZERO_ADDRESS, ZX
 from .signatures import EOA
@@ -45,6 +46,22 @@ class LimitOrder(EIP712Struct):
     signer= Address()
     sigType = Uint(256)
 
+    def to_dict(self):
+        return {
+                "salt": self["salt"],
+                "makerAsset": self["makerAsset"],
+                "takerAsset": self["takerAsset"],
+                "makerAssetData": self["makerAssetData"],
+                "takerAssetData": self["takerAssetData"],
+                "getMakerAmount": self["getMakerAmount"],
+                "getTakerAmount": self["getTakerAmount"],
+                "predicate": self["predicate"],
+                "permit": self["permit"],
+                "interaction": self["interaction"],
+                "signer": self["signer"],
+                "sigType": self["sigType"],
+        }
+
 
 @dataclass
 class MarketOrderData:
@@ -76,6 +93,19 @@ class MarketOrder(EIP712Struct):
     takerAsset = Address()
     takerAssetID = Uint(256)
     sigType = Uint(256)
+
+    def to_dict(self):
+        return {
+            "salt": self["salt"],
+            "signer": self["signer"],
+            "maker": self["maker"],
+            "makerAsset": self["makerAsset"],
+            "makerAmount": self["makerAmount"],
+            "makerAssetID": self["makerAssetID"],
+            "takerAsset": self["takerAsset"],
+            "takerAssetID": self["takerAssetID"],
+            "sigType": self["sigType"],
+        }
     
 
 @dataclass
@@ -87,6 +117,13 @@ class LimitOrderAndSignature:
     signature: str
     orderType: str
 
+    def json(self):
+        return json.dumps({
+            "order": self.order.to_dict(),
+            "signature": self.signature,
+            "orderType": self.orderType,
+        })
+
 
 @dataclass
 class MarketOrderAndSignature:
@@ -96,3 +133,10 @@ class MarketOrderAndSignature:
     order: MarketOrder
     signature: str
     orderType: str
+
+    def json(self):
+        return json.dumps({
+            "order": self.order.to_dict(),
+            "signature": self.signature,
+            "orderType": self.orderType,
+        })

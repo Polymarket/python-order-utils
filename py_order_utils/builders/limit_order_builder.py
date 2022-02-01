@@ -3,8 +3,8 @@ from ..signer import Signer
 from .base_builder import BaseBuilder
 from .exception import ValidationException
 from ..utils import generate_seed, normalize_address
-from ..model.model import LimitOrder, LimitOrderData
 from ..facades import Erc20Facade, Erc1155Facade, LimitOrderProtocolFacade
+from ..model.model import LimitOrder, LimitOrderAndSignature, LimitOrderData
 
 
 class LimitOrderBuilder(BaseBuilder):
@@ -93,6 +93,9 @@ class LimitOrderBuilder(BaseBuilder):
         Signs the Limit order
         """
         return self.sign(self._create_struct_hash(limit_order))
+
+    def build_limit_order_and_signature(self, limit_order: LimitOrder, signature: str):
+        return LimitOrderAndSignature(order=limit_order, signature=signature, orderType="limit")
 
     def _validate_inputs(self, data:LimitOrderData)-> bool:
         return not (

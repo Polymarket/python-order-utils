@@ -63,7 +63,6 @@ class TestMarketOrderBuilder(TestCase):
         
         signature = builder.build_market_order_signature(mkt_order)
         self.assertEqual(expected_sig, signature)
-        
 
     def generate_data(self):
         return MarketOrderData(

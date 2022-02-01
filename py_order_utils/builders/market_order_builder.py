@@ -2,7 +2,7 @@ from ..signer import Signer
 from ..utils import generate_seed, normalize_address
 from .base_builder import BaseBuilder
 from .exception import ValidationException
-from ..model.model import MarketOrder, MarketOrderData
+from ..model.model import MarketOrder, MarketOrderAndSignature, MarketOrderData
 
 
 class MarketOrderBuilder(BaseBuilder):
@@ -35,11 +35,34 @@ class MarketOrderBuilder(BaseBuilder):
             sigType = data.sig_type
         )
 
+
     def build_market_order_signature(self, mkt_order: MarketOrder):
         """
         Signs a market order
         """
-        return self.sign(self._create_struct_hash(mkt_order))
+        normalized_mkt_order = self._normalize(mkt_order)
+        return self.sign(self._create_struct_hash(normalized_mkt_order))
+
+
+    def build_market_order_and_signature(self, mkt_order: MarketOrder, signature: str):
+        """
+        Returns the canonical market order and signature object used across processes
+        """
+        return MarketOrderAndSignature(mkt_order, signature, "market")
+
+
+    def _normalize(self, mkt_order: MarketOrder):
+        return MarketOrder(
+            salt= mkt_order["salt"],
+            maker = mkt_order["maker"],
+            makerAsset = mkt_order["makerAsset"],
+            makerAmount = mkt_order["makerAmount"],
+            makerAssetID = mkt_order["makerAssetID"] if mkt_order["makerAssetID"] >= 0 else 0,
+            takerAsset = mkt_order["takerAsset"],
+            takerAssetID = mkt_order["takerAssetID"] if mkt_order["takerAssetID"] >= 0 else 0,
+            signer= mkt_order["signer"],
+            sigType = mkt_order["sigType"]
+        )
 
     def _validate_inputs(self, data: MarketOrderData)->bool:
         return not (
