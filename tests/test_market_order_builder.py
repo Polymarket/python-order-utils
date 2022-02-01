@@ -66,19 +66,6 @@ class TestMarketOrderBuilder(TestCase):
         
 
     def generate_data(self):
-        """
-        {
-  salt: '284374147907',
-  signer: '0xe3d9BFA896aF6988f80027bfd13440A42C5ed02b',
-  maker: '0xe3d9BFA896aF6988f80027bfd13440A42C5ed02b',
-  makerAsset: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
-  makerAmount: '1000000',
-  makerAssetID: 0,
-  takerAsset: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-  takerAssetID: 1,
-  sigType: 0
-}
-        """
         return MarketOrderData(
             salt=284374147907,
             exchange_address="0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
