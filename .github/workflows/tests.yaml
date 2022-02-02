@@ -27,4 +27,4 @@ jobs:
           pip install -e .
 
       - name: Run Tests
-        run: pytest -s
+        run: make test
