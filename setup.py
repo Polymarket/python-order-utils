@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="py_order_utils",
-    version="0.0.2",
+    version="0.0.3",
     author="Jonathan Amenechi",
     author_email="jonathanamenechi@gmail.com",
     description="Python utilities used to generate and sign limit and market orders on Polymarket's CLOB",
@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/polymarket/python-order-utils",
     install_requires=[
         'web3>=5.0.0,<6.0.0',
-        'eip712-structs==1.1.0',
+        'eip712-structs>=1.0.0',
         'pytest'
     ],
     project_urls={
