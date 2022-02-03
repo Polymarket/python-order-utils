@@ -4,11 +4,11 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="python-order-utils",
+    name="py_order_utils",
     version="0.0.1",
     author="Jonathan Amenechi",
     author_email="jonathanamenechi@gmail.com",
-    description="Utilities used to generate and sign limit and market orders on Polymarket's CLOB",
+    description="Python utilities used to generate and sign limit and market orders on Polymarket's CLOB",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/polymarket/python-order-utils",
