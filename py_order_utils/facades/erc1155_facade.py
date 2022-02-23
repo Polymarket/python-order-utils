@@ -13,7 +13,7 @@ class Erc1155Facade(BaseFacade):
     def __init__(self):
         super().__init__(self.ABIS)
 
-    def transfer_from(self, from_address, to_address, token_address: str, token_id: int, value : str):
+    def transfer_from(self, from_address, to_address, token_address: str, token_id: str, value : str):
         """
         Creates transaction data for an ERC1155 transferFrom
         """
@@ -30,7 +30,7 @@ class Erc1155Facade(BaseFacade):
                 ]
         )
 
-    def balance_of(self, address: str, token_id: int):
+    def balance_of(self, address: str, token_id: str):
         """
         Creates transaction data for an ERC1155 balanceOf
         """
