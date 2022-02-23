@@ -64,9 +64,9 @@ class MarketOrderBuilder(BaseBuilder):
             maker = mkt_order["maker"],
             makerAsset = mkt_order["makerAsset"],
             makerAmount = mkt_order["makerAmount"],
-            makerAssetID = mkt_order["makerAssetID"] if mkt_order["makerAssetID"] >= 0 else 0,
+            makerAssetID = mkt_order["makerAssetID"] if mkt_order["makerAssetID"] != "-1" else "0",
             takerAsset = mkt_order["takerAsset"],
-            takerAssetID = mkt_order["takerAssetID"] if mkt_order["takerAssetID"] >= 0 else 0,
+            takerAssetID = mkt_order["takerAssetID"] if mkt_order["takerAssetID"] != "-1" else "0",
             signer= mkt_order["signer"],
             sigType = mkt_order["sigType"]
         )
