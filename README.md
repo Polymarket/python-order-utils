@@ -1,5 +1,9 @@
 ## python-order-utils
 
+<a href='https://pypi.org/project/py-order-utils'>
+    <img src='https://img.shields.io/pypi/v/py-order-utils.svg' alt='PyPI'/>
+</a>
+
 Python utilities used to generate and sign limit and market orders on Polymarket's CLOB
 
 
