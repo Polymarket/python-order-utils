@@ -13,9 +13,9 @@ class LimitOrderData:
     salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
-    maker_asset_id: int = None
+    maker_asset_id: str = None
     taker_asset_address: str = None
-    taker_asset_id: int = None
+    taker_asset_id: str = None
     maker_address: str = None
     taker_address: str = ZERO_ADDRESS
     maker_amount: int = None
@@ -46,7 +46,7 @@ class LimitOrder(EIP712Struct):
     signer= Address()
     sigType = Uint(256)
 
-    def to_dict(self):
+    def dict(self):
         return {
                 "salt": self["salt"],
                 "makerAsset": self["makerAsset"],
@@ -71,9 +71,9 @@ class MarketOrderData:
     salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
-    maker_asset_id: int = None
+    maker_asset_id: str = None
     taker_asset_address: str = None
-    taker_asset_id: int = None
+    taker_asset_id: str = None
     maker_address: str = None
     maker_amount: int = None
     signer: str = None
@@ -94,16 +94,16 @@ class MarketOrder(EIP712Struct):
     takerAssetID = Uint(256)
     sigType = Uint(256)
 
-    def to_dict(self):
+    def dict(self):
         return {
             "salt": self["salt"],
             "signer": self["signer"],
             "maker": self["maker"],
             "makerAsset": self["makerAsset"],
-            "makerAmount": self["makerAmount"],
-            "makerAssetID": self["makerAssetID"],
+            "makerAmount": str(self["makerAmount"]),
+            "makerAssetID": str(self["makerAssetID"]),
             "takerAsset": self["takerAsset"],
-            "takerAssetID": self["takerAssetID"],
+            "takerAssetID": str(self["takerAssetID"]),
             "sigType": self["sigType"],
         }
     
@@ -117,12 +117,12 @@ class LimitOrderAndSignature:
     signature: str
     orderType: str
 
-    def json(self):
-        return json.dumps({
-            "order": self.order.to_dict(),
+    def dict(self):
+        return {
+            "order": self.order.dict(),
             "signature": self.signature,
             "orderType": self.orderType,
-        })
+        }
 
 
 @dataclass
@@ -134,9 +134,9 @@ class MarketOrderAndSignature:
     signature: str
     orderType: str
 
-    def json(self):
-        return json.dumps({
-            "order": self.order.to_dict(),
+    def dict(self):
+        return {
+            "order": self.order.dict(),
             "signature": self.signature,
             "orderType": self.orderType,
-        })
+        }
