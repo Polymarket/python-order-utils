@@ -71,9 +71,9 @@ class MarketOrderData:
     salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
-    maker_asset_id: str = None
+    maker_asset_id: int = None
     taker_asset_address: str = None
-    taker_asset_id: str = None
+    taker_asset_id: int = None
     maker_address: str = None
     maker_amount: int = None
     signer: str = None
