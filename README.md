@@ -22,8 +22,8 @@ signer = Signer("0xMockPrivateKey")
 builder = LimitOrderBuilder(exchange_address, chain_id, signer)
 
 
-# Create the limit order
-limit_order = builder.build_limit_order(
+# Create and sign the limit order
+limit_order = builder.create_limit_order(
     LimitOrderData(
         maker_asset_address="0x...",
         taker_asset_address="0x...",
@@ -32,10 +32,7 @@ limit_order = builder.build_limit_order(
     )
 )
 
-# Sign it
-signature = builder.build_limit_order_signature(limit_order)
-
 # Generate the Order and Signature json to be sent to the CLOB
-order_and_sig = builder.build_limit_order_and_signature(limit_order, signature).json()
+d = json.dumps(limit_order.dict())
 
 ```

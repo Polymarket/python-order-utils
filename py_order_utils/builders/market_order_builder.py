@@ -50,6 +50,13 @@ class MarketOrderBuilder(BaseBuilder):
         """
         return MarketOrderAndSignature(mkt_order, signature, "market")
 
+    def create_market_order(self, data: MarketOrderData):
+        """
+        Helper function to build and sign a market order
+        """
+        order = self.build_market_order(data)
+        sig = self.build_market_order_signature(order)
+        return MarketOrderAndSignature(order=order, signature=sig, orderType="market")
 
     def _normalize(self, mkt_order: MarketOrder):
         return MarketOrder(

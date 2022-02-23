@@ -97,6 +97,14 @@ class LimitOrderBuilder(BaseBuilder):
     def build_limit_order_and_signature(self, limit_order: LimitOrder, signature: str):
         return LimitOrderAndSignature(order=limit_order, signature=signature, orderType="limit")
 
+    def create_limit_order(self, data: LimitOrderData):
+        """
+        Helper function to build and sign a limit order
+        """
+        order = self.build_limit_order(data)
+        sig = self.build_limit_order_signature(order)
+        return LimitOrderAndSignature(order=order, signature=sig, orderType="limit")
+
     def _validate_inputs(self, data:LimitOrderData)-> bool:
         return not (
             # ensure required values exist
