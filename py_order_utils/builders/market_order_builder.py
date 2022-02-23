@@ -18,8 +18,8 @@ class MarketOrderBuilder(BaseBuilder):
         if not self._validate_inputs(data):
             raise ValidationException("Invalid market order inputs")
 
-        maker_asset_id = data.maker_asset_id if data.maker_asset_id is not None else "-1"
-        taker_asset_id = data.taker_asset_id if data.taker_asset_id is not None else "-1"
+        maker_asset_id = data.maker_asset_id if data.maker_asset_id is not None else -1
+        taker_asset_id = data.taker_asset_id if data.taker_asset_id is not None else -1
 
         signer = data.signer if data.signer is not None else data.maker_address
 
@@ -64,9 +64,9 @@ class MarketOrderBuilder(BaseBuilder):
             maker = mkt_order["maker"],
             makerAsset = mkt_order["makerAsset"],
             makerAmount = mkt_order["makerAmount"],
-            makerAssetID = mkt_order["makerAssetID"] if mkt_order["makerAssetID"] != "-1" else "0",
+            makerAssetID = mkt_order["makerAssetID"] if mkt_order["makerAssetID"] >= 0 else 0,
             takerAsset = mkt_order["takerAsset"],
-            takerAssetID = mkt_order["takerAssetID"] if mkt_order["takerAssetID"] != "-1" else "0",
+            takerAssetID = mkt_order["takerAssetID"] if mkt_order["takerAssetID"] >= 0 else 0,
             signer= mkt_order["signer"],
             sigType = mkt_order["sigType"]
         )
