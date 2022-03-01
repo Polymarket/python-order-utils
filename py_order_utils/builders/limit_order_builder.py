@@ -29,10 +29,10 @@ class LimitOrderBuilder(BaseBuilder):
         if data.maker_asset_id is not None:
             maker_asset = data.exchange_address
             maker_asset_data = self.erc1155_facade.transfer_from(
-                data.maker_asset_address, 
-                data.maker_address, 
-                data.taker_address, 
-                data.maker_asset_id, 
+                data.maker_address,
+                data.taker_address,
+                data.maker_asset_address,
+                data.maker_asset_id,
                 data.maker_amount
             )
         else:
