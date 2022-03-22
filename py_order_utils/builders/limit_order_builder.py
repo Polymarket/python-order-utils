@@ -1,4 +1,3 @@
-from web3 import Web3
 from ..signer import Signer
 from .base_builder import BaseBuilder
 from .exception import ValidationException
@@ -17,8 +16,7 @@ class LimitOrderBuilder(BaseBuilder):
         self.erc20_facade = Erc20Facade()
         self.erc1155_facade = Erc1155Facade()
         self.lop_facade = LimitOrderProtocolFacade()
-        # TODO: add logger
-
+        
     def build_limit_order(self, data: LimitOrderData)-> LimitOrder:
         """
         Builds a limit order
