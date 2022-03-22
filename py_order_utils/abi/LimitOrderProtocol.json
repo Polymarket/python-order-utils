@@ -23,20 +23,81 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "address",
-        "name": "maker",
-        "type": "address"
-      },
-      {
-        "indexed": false,
         "internalType": "bytes32",
         "name": "orderHash",
         "type": "bytes32"
       },
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "canceller",
+        "type": "address"
+      }
+    ],
+    "name": "OrderCancelled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "orderHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "maker",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "taker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "makerAsset",
+        "type": "address"
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
-        "name": "remaining",
+        "name": "makerAssetID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "takerAsset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "takerAssetID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "makerAmountFilled",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "takerAmountFilled",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "remainingAmount",
         "type": "uint256"
       }
     ],
@@ -82,21 +143,27 @@
     "type": "event"
   },
   {
-    "inputs": [],
-    "name": "DOMAIN_SEPARATOR",
-    "outputs": [
+    "anonymous": false,
+    "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldFactory",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newFactory",
+        "type": "address"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
+    "name": "SafeFactoryChanged",
+    "type": "event"
   },
   {
     "inputs": [],
-    "name": "LIMIT_ORDER_RFQ_TYPEHASH",
+    "name": "DOMAIN_SEPARATOR",
     "outputs": [
       {
         "internalType": "bytes32",
@@ -173,128 +240,111 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "target",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes",
-        "name": "data",
-        "type": "bytes"
-      }
-    ],
-    "name": "arbitraryStaticCall",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "salt",
-            "type": "uint256"
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "salt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "makerAsset",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "takerAsset",
+                "type": "address"
+              },
+              {
+                "internalType": "bytes",
+                "name": "makerAssetData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "takerAssetData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "getMakerAmount",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "getTakerAmount",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "predicate",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "permit",
+                "type": "bytes"
+              },
+              {
+                "internalType": "bytes",
+                "name": "interaction",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "signer",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sigType",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct Orders.LimitOrder[]",
+            "name": "orders",
+            "type": "tuple[]"
           },
           {
-            "internalType": "address",
-            "name": "makerAsset",
-            "type": "address"
+            "internalType": "bytes[]",
+            "name": "signatures",
+            "type": "bytes[]"
           },
           {
-            "internalType": "address",
-            "name": "takerAsset",
-            "type": "address"
+            "internalType": "uint256[]",
+            "name": "makingAmounts",
+            "type": "uint256[]"
           },
           {
-            "internalType": "bytes",
-            "name": "makerAssetData",
-            "type": "bytes"
+            "internalType": "uint256[]",
+            "name": "takingAmounts",
+            "type": "uint256[]"
           },
           {
-            "internalType": "bytes",
-            "name": "takerAssetData",
-            "type": "bytes"
-          },
-          {
-            "internalType": "bytes",
-            "name": "getMakerAmount",
-            "type": "bytes"
-          },
-          {
-            "internalType": "bytes",
-            "name": "getTakerAmount",
-            "type": "bytes"
-          },
-          {
-            "internalType": "bytes",
-            "name": "predicate",
-            "type": "bytes"
-          },
-          {
-            "internalType": "bytes",
-            "name": "permit",
-            "type": "bytes"
-          },
-          {
-            "internalType": "bytes",
-            "name": "interaction",
-            "type": "bytes"
-          },
-          {
-            "internalType": "address",
-            "name": "signer",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "sigType",
-            "type": "uint256"
+            "internalType": "uint256[]",
+            "name": "thresholdAmounts",
+            "type": "uint256[]"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder[]",
-        "name": "orders",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "bytes[]",
-        "name": "signatures",
-        "type": "bytes[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "makingAmounts",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "takingAmounts",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "thresholdAmounts",
-        "type": "uint256[]"
+        "internalType": "struct Orders.LimitOrderFillData",
+        "name": "fillData",
+        "type": "tuple"
       }
     ],
     "name": "batchFillOrders",
     "outputs": [
       {
-        "internalType": "uint256[]",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint256[]"
+        "type": "uint256"
       },
       {
-        "internalType": "uint256[]",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint256[]"
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -365,7 +415,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       }
@@ -440,7 +490,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       }
@@ -451,40 +501,6 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "contract AggregatorV3Interface",
-        "name": "oracle1",
-        "type": "address"
-      },
-      {
-        "internalType": "contract AggregatorV3Interface",
-        "name": "oracle2",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "spread",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "doublePrice",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -584,7 +600,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       },
@@ -690,7 +706,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       },
@@ -801,7 +817,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       },
@@ -1126,7 +1142,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       }
@@ -1192,7 +1208,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.MarketOrder",
+        "internalType": "struct Orders.MarketOrder",
         "name": "order",
         "type": "tuple"
       }
@@ -1415,6 +1431,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "safeFactory",
+    "outputs": [
+      {
+        "internalType": "contract ISafeFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -1423,6 +1452,19 @@
       }
     ],
     "name": "setProxyWalletFactory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "factoryAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setSafeFactory",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1443,35 +1485,6 @@
     "name": "simulateCalls",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "contract AggregatorV3Interface",
-        "name": "oracle",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "inverseAndSpread",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "singlePrice",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1571,7 +1584,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.LimitOrder",
+        "internalType": "struct Orders.LimitOrder",
         "name": "order",
         "type": "tuple"
       },
@@ -1636,7 +1649,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct OrderTypes.MarketOrder",
+        "internalType": "struct Orders.MarketOrder",
         "name": "order",
         "type": "tuple"
       },

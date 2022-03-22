@@ -19,13 +19,6 @@ class ContractConfig:
     
 
 CONFIG = {
-    42: ContractConfig(
-        exchange="0xE7819d9745e64c14541732ca07CC3898670b7650", 
-        executor="0x382E8f6a8404eB11aaFd9A5a0B11aa5A24e0830B", 
-        collateral="0xe22da380ee6B445bb8273C81944ADEB6E8450422",
-        conditional = ""
-    ),
-
     137: ContractConfig(
         exchange="", 
         executor="",  #TODO: update these
@@ -34,8 +27,8 @@ CONFIG = {
     ),
 
     80001: ContractConfig(
-        exchange="0xA6227994182d87680a8d66F41ad7E3a56130858E", 
-        executor="0x859876dD2683Df7AdBd8B8623Ce7F57Ea01f85Ad", 
+        exchange="0x3AA27F87CA17822f305A9788e7b9f5ea43A531FF", 
+        executor="0x1199443D6806dE23a9C976193F07A381542F81df", 
         collateral="0x2E8DCfE708D44ae2e406a1c02DFE2Fa13012f961",
         conditional = "0x7D8610E9567d2a6C9FBf66a5A13E9Ba8bb120d43"
     )
