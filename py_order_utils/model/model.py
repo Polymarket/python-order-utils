@@ -141,5 +141,5 @@ class MarketOrderAndSignature:
             "order": self.order.dict(),
             "signature": self.signature,
             "orderType": self.orderType,
-            "minAmountReceived": self.minAmountReceived,
+            "minAmountReceived": str(self.minAmountReceived),
         }
