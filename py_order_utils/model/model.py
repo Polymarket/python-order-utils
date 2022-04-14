@@ -133,10 +133,12 @@ class MarketOrderAndSignature:
     order: MarketOrder
     signature: str
     orderType: str
+    minAmountReceived: str = "0"; # Optional slippage protection field
 
     def dict(self):
         return {
             "order": self.order.dict(),
             "signature": self.signature,
             "orderType": self.orderType,
+            "minAmountReceived": self.minAmountReceived,
         }
