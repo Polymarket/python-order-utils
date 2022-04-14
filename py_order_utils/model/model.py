@@ -78,6 +78,7 @@ class MarketOrderData:
     maker_amount: int = None
     signer: str = None
     sig_type: int = EOA
+    min_amount_received: int = "0"
 
 class MarketOrder(EIP712Struct):
     """
