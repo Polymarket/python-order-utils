@@ -25,8 +25,6 @@ class LimitOrderData:
     signer: str = None
     sig_type: int = EOA
     predicate: str = ZX
-    permit: str = ZX
-    interaction: str = ZX
 
 
 class LimitOrder(EIP712Struct):
@@ -41,8 +39,6 @@ class LimitOrder(EIP712Struct):
     getMakerAmount = Bytes()
     getTakerAmount = Bytes()
     predicate = Bytes()
-    permit = Bytes()
-    interaction = Bytes()
     signer= Address()
     sigType = Uint(256)
 
@@ -56,8 +52,6 @@ class LimitOrder(EIP712Struct):
                 "getMakerAmount": self["getMakerAmount"],
                 "getTakerAmount": self["getTakerAmount"],
                 "predicate": self["predicate"],
-                "permit": self["permit"],
-                "interaction": self["interaction"],
                 "signer": self["signer"],
                 "sigType": self["sigType"],
         }

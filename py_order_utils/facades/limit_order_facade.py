@@ -8,7 +8,7 @@ class LimitOrderProtocolFacade(BaseFacade):
     Limit Order protocol facade
     """
     
-    ABIS = {"lop": "abi/LimitOrderProtocol.json"}
+    ABIS = {"lop": "abi/PolyLimitOrderProtocol.json"}
 
     def __init__(self):
         super().__init__(self.ABIS)

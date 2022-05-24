@@ -14,7 +14,7 @@ class BaseBuilder:
 
     def _get_domain_separator(self, chain_id: int, verifying_contract: str)->EIP712Struct:
         return make_domain(
-            name="1inch Limit Order Protocol",
+            name="Polymarket Limit Order Protocol",
             version="1",
             chainId=str(chain_id),
             verifyingContract=verifying_contract,

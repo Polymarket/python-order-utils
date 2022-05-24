@@ -51,14 +51,27 @@ class TestMarketOrderBuilder(TestCase):
         self.assertEqual(EOA, mkt_order["sigType"])
 
     def test_build_market_order_signature(self):
-        expected_sig = "0x88be65ecb593b31977425933df5332f3da1c7b2b54ca033906035dc3d4fd11850e676164e7073e70ef25f881109b39f5b7321df415bc5572d09918c3063669ee1b"
+        mkt_order_data = MarketOrderData(
+            exchange_address='0x0165878A594ca255338adfa4d48449f69242Eb8F',
+            salt=1028957131466,
+            signer='0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+            maker_address='0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+            maker_asset_address='0x5FbDB2315678afecb367f032d93F642f64180aa3',
+            maker_amount=150000000,
+            maker_asset_id=0,
+            taker_asset_address='0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+            taker_asset_id=0,
+            sig_type=0
+        )
+
+        expected_sig = "0x62a1b1b3634d5ba8eca890fd7954247c7dbe1a50211bdff31753b3687bb6d0311f3df23e52401f73be7f2cd407902696479af8d324fdc9836769993786b710d41c"
         signer = mock.MagicMock()
         signer.sign.return_value = expected_sig
         
-        builder = MarketOrderBuilder("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", 31337, signer)
-        expected_struct_hash = "0xc568f86a5347e6ace2d4d7eff6215a4669d86ab811be1f9d74ba59717396da90"
+        builder = MarketOrderBuilder("0x0165878A594ca255338adfa4d48449f69242Eb8F", 31337, signer)
+        expected_struct_hash = "0x6b5da848321b92bc4c7d045289484063e6e31aa3197bd2ccecad302f6b043b47"
 
-        mkt_order = builder.build_market_order(self.generate_data())
+        mkt_order = builder.build_market_order(mkt_order_data)
         self.assertEqual(expected_struct_hash, builder._create_struct_hash(mkt_order).hex())
         
         signature = builder.build_market_order_signature(mkt_order)

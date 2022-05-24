@@ -6,7 +6,7 @@ class Erc1155Facade(BaseFacade):
     """
     Facade for ERC1155 transfers and balance
     """
-    ABIS = {"erc1155": "abi/ERC1155ABI.json", "lop": "abi/LimitOrderProtocol.json"}
+    ABIS = {"erc1155": "abi/ERC1155ABI.json", "lop": "abi/PolyLimitOrderProtocol.json"}
     transferFrom = "func_733NCGU"
     balanceOf = "balanceOf"
 

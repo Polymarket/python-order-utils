@@ -27,8 +27,8 @@ CONFIG = {
     ),
 
     80001: ContractConfig(
-        exchange="0xe8DaCEd3A06A59ADADF804771d10684A6E536ffd", 
-        executor="0xA15b04F6eb916f2e368Aeb17740a52b0379B8B6D", 
+        exchange="0x6D486b31b5c0f724828Aff07c88606b213B0D196", 
+        executor="0x6b0ab7A1E65ea6AE9072f6c45B4261ACDfB30827", 
         collateral="0x2E8DCfE708D44ae2e406a1c02DFE2Fa13012f961",
         conditional = "0x7D8610E9567d2a6C9FBf66a5A13E9Ba8bb120d43"
     )

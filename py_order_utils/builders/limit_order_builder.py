@@ -79,8 +79,6 @@ class LimitOrderBuilder(BaseBuilder):
             getMakerAmount=get_maker_amount,
             getTakerAmount=get_taker_amount,
             predicate=predicate,
-            permit=data.permit,
-            interaction=data.interaction,
             signer=signer,
             sigType=data.sig_type
         )
