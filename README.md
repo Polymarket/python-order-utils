@@ -1,4 +1,4 @@
-## python-order-utils
+## Polymarket CLOB Python order-utils
 
 <a href='https://pypi.org/project/py-order-utils'>
     <img src='https://img.shields.io/pypi/v/py-order-utils.svg' alt='PyPI'/>
