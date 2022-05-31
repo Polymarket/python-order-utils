@@ -20,8 +20,8 @@ class ContractConfig:
 
 CONFIG = {
     137: ContractConfig(
-        exchange="", 
-        executor="",  #TODO: update these
+        exchange="0x6D486b31b5c0f724828Aff07c88606b213B0D196",
+        executor="0x6b0ab7A1E65ea6AE9072f6c45B4261ACDfB30827",
         collateral="0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
         conditional = "0x4d97dcd97ec945f40cf65f87097ace5ea0476045"
     ),
