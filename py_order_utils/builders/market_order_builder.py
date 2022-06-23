@@ -44,11 +44,11 @@ class MarketOrderBuilder(BaseBuilder):
         return self.sign(self._create_struct_hash(normalized_mkt_order))
 
 
-    def build_market_order_and_signature(self, mkt_order: MarketOrder, signature: str):
+    def build_market_order_and_signature(self, mkt_order: MarketOrder, signature: str, minAmountReceived: str = "0", timeInForce: str = "FOK"):
         """
         Returns the canonical market order and signature object used across processes
         """
-        return MarketOrderAndSignature(mkt_order, signature, "market")
+        return MarketOrderAndSignature(mkt_order, signature, "market", minAmountReceived=minAmountReceived, timeInForce=timeInForce)
 
     def create_market_order(self, data: MarketOrderData):
         """
@@ -56,7 +56,7 @@ class MarketOrderBuilder(BaseBuilder):
         """
         order = self.build_market_order(data)
         sig = self.build_market_order_signature(order)
-        return MarketOrderAndSignature(order=order, signature=sig, orderType="market", minAmountReceived=data.min_amount_received)
+        return MarketOrderAndSignature(order=order, signature=sig, orderType="market", minAmountReceived=data.min_amount_received, timeInForce=data.time_in_force)
 
     def _normalize(self, mkt_order: MarketOrder):
         return MarketOrder(
