@@ -73,6 +73,7 @@ class MarketOrderData:
     signer: str = None
     sig_type: int = EOA
     min_amount_received: int = "0"
+    time_in_force: str = "FOK"
 
 class MarketOrder(EIP712Struct):
     """
@@ -129,6 +130,7 @@ class MarketOrderAndSignature:
     signature: str
     orderType: str
     minAmountReceived: str = "0"; # Optional slippage protection field
+    timeInForce: str = "FOK"; # Optional market order type: FOK (fill or kill) / IOC (immediate or cancel)
 
     def dict(self):
         return {
@@ -136,4 +138,5 @@ class MarketOrderAndSignature:
             "signature": self.signature,
             "orderType": self.orderType,
             "minAmountReceived": str(self.minAmountReceived),
+            "timeInForce": self.timeInForce
         }
