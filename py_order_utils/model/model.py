@@ -5,11 +5,13 @@ from ..constants import ZERO_ADDRESS, ZX
 from .signatures import EOA
 from eip712_structs import Address, Bytes, EIP712Struct, Uint
 
+
 @dataclass
 class LimitOrderData:
     """
     Inputs to generate Limit orders
     """
+
     salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
@@ -31,29 +33,30 @@ class LimitOrder(EIP712Struct):
     """
     Limit Order
     """
+
     salt = Uint(256)
-    makerAsset = Address() 
+    makerAsset = Address()
     takerAsset = Address()
     makerAssetData = Bytes()
     takerAssetData = Bytes()
     getMakerAmount = Bytes()
     getTakerAmount = Bytes()
     predicate = Bytes()
-    signer= Address()
+    signer = Address()
     sigType = Uint(256)
 
     def dict(self):
         return {
-                "salt": self["salt"],
-                "makerAsset": self["makerAsset"],
-                "takerAsset": self["takerAsset"],
-                "makerAssetData": self["makerAssetData"],
-                "takerAssetData": self["takerAssetData"],
-                "getMakerAmount": self["getMakerAmount"],
-                "getTakerAmount": self["getTakerAmount"],
-                "predicate": self["predicate"],
-                "signer": self["signer"],
-                "sigType": self["sigType"],
+            "salt": self["salt"],
+            "makerAsset": self["makerAsset"],
+            "takerAsset": self["takerAsset"],
+            "makerAssetData": self["makerAssetData"],
+            "takerAssetData": self["takerAssetData"],
+            "getMakerAmount": self["getMakerAmount"],
+            "getTakerAmount": self["getTakerAmount"],
+            "predicate": self["predicate"],
+            "signer": self["signer"],
+            "sigType": self["sigType"],
         }
 
 
@@ -62,6 +65,7 @@ class MarketOrderData:
     """
     Inputs to generate Market orders
     """
+
     salt: int = None
     exchange_address: str = None
     maker_asset_address: str = None
@@ -75,10 +79,12 @@ class MarketOrderData:
     min_amount_received: int = "0"
     time_in_force: str = "FOK"
 
+
 class MarketOrder(EIP712Struct):
     """
     Market Order
     """
+
     # NOTE: Important to keep in mind, fields are ordered
     salt = Uint(256)
     signer = Address()
@@ -102,13 +108,14 @@ class MarketOrder(EIP712Struct):
             "takerAssetID": str(self["takerAssetID"]),
             "sigType": self["sigType"],
         }
-    
+
 
 @dataclass
 class LimitOrderAndSignature:
     """
     Canonical Limit order and signature
     """
+
     order: LimitOrder
     signature: str
     orderType: str
@@ -126,11 +133,14 @@ class MarketOrderAndSignature:
     """
     Canonical Market order and signature
     """
+
     order: MarketOrder
     signature: str
     orderType: str
-    minAmountReceived: str = "0"; # Optional slippage protection field
-    timeInForce: str = "FOK"; # Optional market order type: FOK (fill or kill) / IOC (immediate or cancel)
+    minAmountReceived: str = "0"
+    # Optional slippage protection field
+    timeInForce: str = "FOK"
+    # Optional market order type: FOK (fill or kill) / IOC (immediate or cancel)
 
     def dict(self):
         return {
@@ -138,5 +148,5 @@ class MarketOrderAndSignature:
             "signature": self.signature,
             "orderType": self.orderType,
             "minAmountReceived": str(self.minAmountReceived),
-            "timeInForce": self.timeInForce
+            "timeInForce": self.timeInForce,
         }
