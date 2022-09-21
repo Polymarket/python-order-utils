@@ -15,3 +15,6 @@ class Signer:
         Signs an EIP712 struct hash
         """
         return Account._sign_hash(struct_hash, self._key).signature.hex()
+
+    def address(self) -> str:
+        return self.account.address

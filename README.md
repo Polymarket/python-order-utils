@@ -26,7 +26,7 @@ def main():
     builder = OrderBuilder(exchange_address, chain_id, signer)
 
     # Create and sign the order
-    order = builder.create_order(
+    order = builder.build_signed_order(
         OrderData(
             ...
         )
