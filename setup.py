@@ -8,8 +8,8 @@ setuptools.setup(
     version="0.1.0",
     author="Polymarket Engineering",
     author_email="engineering@polymarket.com",
-    maintainer="Polymarket Engineering"
-    maintainer_email="engineering@polymarket.com"
+    maintainer="Polymarket Engineering",
+    maintainer_email="engineering@polymarket.com",
     description="Python utilities used to generate and sign orders from Polymarket's Exchange",
     long_description=long_description,
     long_description_content_type="text/markdown",
