@@ -6,8 +6,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name="py_order_utils",
     version="0.1.0",
-    author="Jonathan Amenechi",
-    author_email="jonathanamenechi@gmail.com",
+    author="Polymarket Engineering",
+    author_email="engineering@polymarket.com",
+    maintainer="Polymarket Engineering"
+    maintainer_email="engineering@polymarket.com"
     description="Python utilities used to generate and sign orders from Polymarket's Exchange",
     long_description=long_description,
     long_description_content_type="text/markdown",
