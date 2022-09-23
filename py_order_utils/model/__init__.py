@@ -1,2 +1,3 @@
-from py_order_utils.model.model import LimitOrder, LimitOrderData, MarketOrderData, MarketOrder
-from py_order_utils.model.signatures import EOA, CONTRACT, POLY_PROXY, POLY_GNOSIS_SAFE
+from py_order_utils.model.order import OrderData, Order, SignedOrder
+from py_order_utils.model.signatures import EOA, POLY_PROXY, POLY_GNOSIS_SAFE
+from py_order_utils.model.sides import BUY, SELL
