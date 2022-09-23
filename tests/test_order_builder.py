@@ -112,12 +112,12 @@ class TestOrderBuilder(TestCase):
 
         # Ensure struct hash is expected(generated via ethers)
         expected_struct_hash = (
-            "0xffe5ee610bb27006448785a9af0b8b24c729632cc9ed78a5d571cf053cd2eba3"
+            "0x41ae598a16959ad2f14e9a610f7861948ad502479ca7a49d1c744de310f7be88"
         )
         struct_hash = builder._create_struct_hash(_order)
         self.assertEqual(expected_struct_hash, struct_hash.hex())
 
-        expected_signature = "0x8388a5ebe31745a3225612cece129a494122f924e60691c9893901d10e996a01372f1dbde25952cb07719af209bf6b96592c513239aac82ec775846e4b09ee191c"
+        expected_signature = "0x748008725feeb87db204b2b237869f09176a756abfcb03f9b66e833e80effbcf22c1564cbf18bf8daa88db2ea95eeb6057938bf6bdee7e3708655aa34842db3d1c"
         sig = builder.build_order_signature(_order)
         self.assertEqual(expected_signature, sig)
 
@@ -128,7 +128,7 @@ class TestOrderBuilder(TestCase):
 
         signed_order = builder.build_signed_order(self.generate_data())
 
-        expected_signature = "0x8388a5ebe31745a3225612cece129a494122f924e60691c9893901d10e996a01372f1dbde25952cb07719af209bf6b96592c513239aac82ec775846e4b09ee191c"
+        expected_signature = "0x748008725feeb87db204b2b237869f09176a756abfcb03f9b66e833e80effbcf22c1564cbf18bf8daa88db2ea95eeb6057938bf6bdee7e3708655aa34842db3d1c"
         self.assertEqual(expected_signature, signed_order.signature)
         self.assertTrue(isinstance(signed_order.order["salt"], int))
         self.assertEqual(salt, signed_order.order["salt"])
