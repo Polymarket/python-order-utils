@@ -222,13 +222,13 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "filled",
+        "name": "makerAmountFilled",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "remaining",
+        "name": "takerAmountFilled",
         "type": "uint256"
       },
       {
