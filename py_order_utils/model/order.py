@@ -168,4 +168,14 @@ class SignedOrder:
     def dict(self):
         d = self.order.dict()
         d["signature"] = self.signature
+        if d["side"] == 0:
+            d["side"] = "BUY"
+        else: 
+            d["side"] = "SELL"
+        d["expiration"] = str(d["expiration"])
+        d["nonce"] = str(d["nonce"])
+        d["feeRateBps"] = str(d["feeRateBps"])
+        d["makerAmount"] = str(d["makerAmount"])
+        d["takerAmount"] = str(d["takerAmount"])
+        d["tokenId"] = str(d["tokenId"])
         return d
