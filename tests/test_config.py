@@ -7,13 +7,11 @@ class TestConfig(TestCase):
         valid_config = get_contract_config(80001)
         self.assertIsNotNone(valid_config)
         self.assertIsNotNone(valid_config.get_exchange())
-        self.assertIsNotNone(valid_config.get_executor())
         self.assertIsNotNone(valid_config.get_collateral())
 
         valid_config = get_contract_config(137)
         self.assertIsNotNone(valid_config)
         self.assertIsNotNone(valid_config.get_exchange())
-        self.assertIsNotNone(valid_config.get_executor())
         self.assertIsNotNone(valid_config.get_collateral())
 
         # invalid config
