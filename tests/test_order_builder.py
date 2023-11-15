@@ -5,7 +5,6 @@ from py_order_utils.model.sides import BUY
 from py_order_utils.builders import OrderBuilder
 from py_order_utils.model.signatures import EOA
 from py_order_utils.signer import Signer
-from py_order_utils.config import get_contract_config
 from py_order_utils.constants import ZERO_ADDRESS
 
 # publicly known private key
@@ -14,7 +13,11 @@ signer = Signer(key=private_key)
 maker_address = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 salt = 479249096354
 chain_id = 80001
-mumbai_contracts = get_contract_config(chain_id)
+mumbai_contracts = {
+  "exchange": "0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E",
+  "collateral": "0x2E8DCfE708D44ae2e406a1c02DFE2Fa13012f961",
+  "conditional": "0x7D8610E9567d2a6C9FBf66a5A13E9Ba8bb120d43",
+}
 
 
 def mock_salt_generator():
@@ -23,7 +26,7 @@ def mock_salt_generator():
 
 class TestOrderBuilder(TestCase):
     def test_validate_order(self):
-        builder = OrderBuilder(mumbai_contracts.exchange, chain_id, signer)
+        builder = OrderBuilder(mumbai_contracts["exchange"], chain_id, signer)
 
         # Valid order
         data = self.generate_data()
@@ -49,7 +52,7 @@ class TestOrderBuilder(TestCase):
         self.assertFalse(builder._validate_inputs(data))
 
     def test_build_order(self):
-        builder = OrderBuilder(mumbai_contracts.exchange, chain_id, signer)
+        builder = OrderBuilder(mumbai_contracts["exchange"], chain_id, signer)
 
         invalid_data_input = self.generate_data()
         invalid_data_input.tokenId = None
@@ -83,7 +86,7 @@ class TestOrderBuilder(TestCase):
 
         # specific salt
         builder = OrderBuilder(
-            mumbai_contracts.exchange, chain_id, signer, mock_salt_generator
+            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
@@ -105,7 +108,7 @@ class TestOrderBuilder(TestCase):
 
     def test_build_prder_signature(self):
         builder = OrderBuilder(
-            mumbai_contracts.exchange, chain_id, signer, mock_salt_generator
+            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
@@ -123,7 +126,7 @@ class TestOrderBuilder(TestCase):
 
     def test_build_signed_order(self):
         builder = OrderBuilder(
-            mumbai_contracts.exchange, chain_id, signer, mock_salt_generator
+            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         signed_order = builder.build_signed_order(self.generate_data())
