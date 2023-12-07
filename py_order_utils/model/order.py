@@ -170,7 +170,7 @@ class SignedOrder:
         d["signature"] = self.signature
         if d["side"] == 0:
             d["side"] = "BUY"
-        else: 
+        else:
             d["side"] = "SELL"
         d["expiration"] = str(d["expiration"])
         d["nonce"] = str(d["nonce"])
