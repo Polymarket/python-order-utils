@@ -21,7 +21,7 @@ from pprint import pprint
 
 def main():
     exchange_address = "0x...."
-    chain_id = 80001
+    chain_id = 80002
     signer = Signer("0x....")
     builder = OrderBuilder(exchange_address, chain_id, signer)
 
