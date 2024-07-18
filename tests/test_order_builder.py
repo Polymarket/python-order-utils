@@ -12,12 +12,12 @@ private_key = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff8
 signer = Signer(key=private_key)
 maker_address = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 salt = 479249096354
-chain_id = 80001
-mumbai_contracts = {
-    "exchange": "0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E",
-    "negRiskExchange": "0x87d1A0DdB4C63a6301916F02090A51a7241571e4",
-    "collateral": "0x2E8DCfE708D44ae2e406a1c02DFE2Fa13012f961",
-    "conditional": "0x7D8610E9567d2a6C9FBf66a5A13E9Ba8bb120d43",
+chain_id = 80002
+amoy_contracts = {
+    "exchange": "0xdFE02Eb6733538f8Ea35D585af8DE5958AD99E40",
+    "negRiskExchange": "0xC5d563A36AE78145C45a50134d48A1215220f80a",
+    "collateral": "0x9c4e1703476e875070ee25b56a58b008cfb8fa78",
+    "conditional": "0x69308FB512518e39F9b16112fA8d994F4e2Bf8bB",
 }
 
 
@@ -27,7 +27,7 @@ def mock_salt_generator():
 
 class TestOrderBuilder(TestCase):
     def test_validate_order(self):
-        builder = OrderBuilder(mumbai_contracts["exchange"], chain_id, signer)
+        builder = OrderBuilder(amoy_contracts["exchange"], chain_id, signer)
 
         # Valid order
         data = self.generate_data()
@@ -53,7 +53,7 @@ class TestOrderBuilder(TestCase):
         self.assertFalse(builder._validate_inputs(data))
 
     def test_validate_order_neg_risk(self):
-        builder = OrderBuilder(mumbai_contracts["negRiskExchange"], chain_id, signer)
+        builder = OrderBuilder(amoy_contracts["negRiskExchange"], chain_id, signer)
 
         # Valid order
         data = self.generate_data()
@@ -79,7 +79,7 @@ class TestOrderBuilder(TestCase):
         self.assertFalse(builder._validate_inputs(data))
 
     def test_build_order(self):
-        builder = OrderBuilder(mumbai_contracts["exchange"], chain_id, signer)
+        builder = OrderBuilder(amoy_contracts["exchange"], chain_id, signer)
 
         invalid_data_input = self.generate_data()
         invalid_data_input.tokenId = None
@@ -113,7 +113,7 @@ class TestOrderBuilder(TestCase):
 
         # specific salt
         builder = OrderBuilder(
-            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
@@ -134,7 +134,7 @@ class TestOrderBuilder(TestCase):
         self.assertEqual(EOA, _order["signatureType"])
 
     def test_build_order_neg_risk(self):
-        builder = OrderBuilder(mumbai_contracts["negRiskExchange"], chain_id, signer)
+        builder = OrderBuilder(amoy_contracts["negRiskExchange"], chain_id, signer)
 
         invalid_data_input = self.generate_data()
         invalid_data_input.tokenId = None
@@ -168,7 +168,7 @@ class TestOrderBuilder(TestCase):
 
         # specific salt
         builder = OrderBuilder(
-            mumbai_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
@@ -190,48 +190,48 @@ class TestOrderBuilder(TestCase):
 
     def test_build_order_signature(self):
         builder = OrderBuilder(
-            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
 
         # Ensure struct hash is expected(generated via ethers)
         expected_struct_hash = (
-            "0xbf58957703791db2ab057528d03d1cff5375d9a475b14a9073bb7d892398dc96"
+            "0x02ca1d1aa31103804173ad1acd70066cb6c1258a4be6dada055111f9a7ea4e55"
         )
         struct_hash = builder._create_struct_hash(_order)
         self.assertEqual(expected_struct_hash, struct_hash.hex())
 
-        expected_signature = "0x3874d2cfe79c0e82577f4f76ec58d950522ee5923a6f08441927d382c8178a5a2190fd4d5c49705e94d75999a58ec843f94a432e87ebc15cdb2186d315b3cc201b"
+        expected_signature = "0x302cd9abd0b5fcaa202a344437ec0b6660da984e24ae9ad915a592a90facf5a51bb8a873cd8d270f070217fea1986531d5eec66f1162a81f66e026db653bf7ce1c"
         sig = builder.build_order_signature(_order)
         self.assertEqual(expected_signature, sig)
 
     def test_build_order_signature_neg_risk(self):
         builder = OrderBuilder(
-            mumbai_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
         )
 
         _order = builder.build_order(self.generate_data())
 
         # Ensure struct hash is expected(generated via ethers)
         expected_struct_hash = (
-            "0x053c3169ec6c9e99e3640cb12b9c9245917daf36bd4fd39ea09d201a07b53952"
+            "0xf15790d3edc4b5aed427b0b543a9206fcf4b1a13dfed016d33bfb313076263b8"
         )
         struct_hash = builder._create_struct_hash(_order)
         self.assertEqual(expected_struct_hash, struct_hash.hex())
 
-        expected_signature = "0xb47e588cfb8630ffa255d1a04a4bb2b996967c2143fc107ab443282ed7dcc123288842968fa29e6f2e789e39ea02f13654d4dd55002b8672e9a91e2ba9045aa21b"
+        expected_signature = "0x1b3646ef347e5bd144c65bd3357ba19c12c12abaeedae733cf8579bc51a2752c0454c3bc6b236957e393637982c769b8dc0706c0f5c399983d933850afd1cbcd1c"
         sig = builder.build_order_signature(_order)
         self.assertEqual(expected_signature, sig)
 
     def test_build_signed_order(self):
         builder = OrderBuilder(
-            mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
 
         signed_order = builder.build_signed_order(self.generate_data())
 
-        expected_signature = "0x3874d2cfe79c0e82577f4f76ec58d950522ee5923a6f08441927d382c8178a5a2190fd4d5c49705e94d75999a58ec843f94a432e87ebc15cdb2186d315b3cc201b"
+        expected_signature = "0x302cd9abd0b5fcaa202a344437ec0b6660da984e24ae9ad915a592a90facf5a51bb8a873cd8d270f070217fea1986531d5eec66f1162a81f66e026db653bf7ce1c"
         self.assertEqual(expected_signature, signed_order.signature)
         self.assertTrue(isinstance(signed_order.order["salt"], int))
         self.assertEqual(salt, signed_order.order["salt"])
@@ -249,12 +249,12 @@ class TestOrderBuilder(TestCase):
 
     def test_build_signed_order_neg_risk(self):
         builder = OrderBuilder(
-            mumbai_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
+            amoy_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
         )
 
         signed_order = builder.build_signed_order(self.generate_data())
 
-        expected_signature = "0xb47e588cfb8630ffa255d1a04a4bb2b996967c2143fc107ab443282ed7dcc123288842968fa29e6f2e789e39ea02f13654d4dd55002b8672e9a91e2ba9045aa21b"
+        expected_signature = "0x1b3646ef347e5bd144c65bd3357ba19c12c12abaeedae733cf8579bc51a2752c0454c3bc6b236957e393637982c769b8dc0706c0f5c399983d933850afd1cbcd1c"
         self.assertEqual(expected_signature, signed_order.signature)
         self.assertTrue(isinstance(signed_order.order["salt"], int))
         self.assertEqual(salt, signed_order.order["salt"])
