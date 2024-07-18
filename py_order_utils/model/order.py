@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from ..constants import ZERO_ADDRESS
 from .signatures import EOA
-from eip712_structs import Address, EIP712Struct, Uint
+from poly_eip712_structs import Address, EIP712Struct, Uint
 
 
 @dataclass

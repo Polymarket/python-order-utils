@@ -1,4 +1,4 @@
-eip712-structs==1.1.0
 eth-account===0.13.0
 eth-utils===4.1.1
+poly_eip712_structs==0.0.1
 pytest==8.2.2
