@@ -200,7 +200,7 @@ class TestOrderBuilder(TestCase):
             "0x02ca1d1aa31103804173ad1acd70066cb6c1258a4be6dada055111f9a7ea4e55"
         )
         struct_hash = builder._create_struct_hash(_order)
-        self.assertEqual(expected_struct_hash, struct_hash.hex())
+        self.assertEqual(expected_struct_hash, struct_hash)
 
         expected_signature = "0x302cd9abd0b5fcaa202a344437ec0b6660da984e24ae9ad915a592a90facf5a51bb8a873cd8d270f070217fea1986531d5eec66f1162a81f66e026db653bf7ce1c"
         sig = builder.build_order_signature(_order)
@@ -218,7 +218,7 @@ class TestOrderBuilder(TestCase):
             "0xf15790d3edc4b5aed427b0b543a9206fcf4b1a13dfed016d33bfb313076263b8"
         )
         struct_hash = builder._create_struct_hash(_order)
-        self.assertEqual(expected_struct_hash, struct_hash.hex())
+        self.assertEqual(expected_struct_hash, struct_hash)
 
         expected_signature = "0x1b3646ef347e5bd144c65bd3357ba19c12c12abaeedae733cf8579bc51a2752c0454c3bc6b236957e393637982c769b8dc0706c0f5c399983d933850afd1cbcd1c"
         sig = builder.build_order_signature(_order)
