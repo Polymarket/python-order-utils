@@ -188,7 +188,7 @@ class TestOrderBuilder(TestCase):
         self.assertEqual(BUY, _order["side"])
         self.assertEqual(EOA, _order["signatureType"])
 
-    def test_build_prder_signature(self):
+    def test_build_order_signature(self):
         builder = OrderBuilder(
             mumbai_contracts["exchange"], chain_id, signer, mock_salt_generator
         )
@@ -206,7 +206,7 @@ class TestOrderBuilder(TestCase):
         sig = builder.build_order_signature(_order)
         self.assertEqual(expected_signature, sig)
 
-    def test_build_prder_signature_neg_risk(self):
+    def test_build_order_signature_neg_risk(self):
         builder = OrderBuilder(
             mumbai_contracts["negRiskExchange"], chain_id, signer, mock_salt_generator
         )
@@ -222,7 +222,6 @@ class TestOrderBuilder(TestCase):
 
         expected_signature = "0xb47e588cfb8630ffa255d1a04a4bb2b996967c2143fc107ab443282ed7dcc123288842968fa29e6f2e789e39ea02f13654d4dd55002b8672e9a91e2ba9045aa21b"
         sig = builder.build_order_signature(_order)
-        print(sig)
         self.assertEqual(expected_signature, sig)
 
     def test_build_signed_order(self):

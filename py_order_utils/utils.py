@@ -15,7 +15,7 @@ def normalize(s: str) -> str:
 
 
 def normalize_address(address: str) -> str:
-    return web3.Web3.toChecksumAddress(address)
+    return web3.Web3.to_checksum_address(address)
 
 
 def generate_seed() -> int:

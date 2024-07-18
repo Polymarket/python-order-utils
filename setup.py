@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="py_order_utils",
-    version="0.2.0",
+    version="0.2.1",
     author="Polymarket Engineering",
     author_email="engineering@polymarket.com",
     maintainer="Polymarket Engineering",
@@ -15,14 +15,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/polymarket/python-order-utils",
     install_requires=[
-        "web3>=5.0.0,<6.0.0",
-        "eth-account>=0.4.0,<0.6.0",
+        "web3>=6.20.0",
         "eip712-structs",
-        "pytest",
-        "eth-abi",
-        "eth_typing",
-        "eth_utils",
-        "eth_utils",
+        "pytest"
     ],
     package_data={
         "py_order_utils": [
