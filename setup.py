@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="py_order_utils",
-    version="0.3.1",
+    version="0.3.2",
     author="Polymarket Engineering",
     author_email="engineering@polymarket.com",
     maintainer="Polymarket Engineering",
@@ -18,7 +18,7 @@ setuptools.setup(
         "eth-utils>=4.1.1",
         "eth-account>=0.13.0",
         "poly-eip712-structs",
-        "pytest"
+        "pytest",
     ],
     package_data={
         "py_order_utils": [
