@@ -59,7 +59,10 @@ class OrderBuilder(BaseBuilder):
         """
         Signs the order
         """
-        return "0x" + self.sign(self._create_struct_hash(_order))
+        sig = self.sign(self._create_struct_hash(_order))
+        if len(sig) > 2 and sig[:2] != "0x":
+            sig = f"0x{sig}"
+        return sig
 
     def build_signed_order(self, data: OrderData) -> SignedOrder:
         """
