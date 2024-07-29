@@ -1,7 +1,7 @@
 from ..signer import Signer
 from .base_builder import BaseBuilder
 from .exception import ValidationException
-from ..utils import generate_seed, normalize_address
+from ..utils import generate_seed, normalize_address, prepend_zx
 from ..model.order import Order, SignedOrder, OrderData
 from ..model.sides import BUY, SELL
 from ..model.signatures import EOA, POLY_GNOSIS_SAFE, POLY_PROXY
@@ -59,10 +59,7 @@ class OrderBuilder(BaseBuilder):
         """
         Signs the order
         """
-        sig = self.sign(self._create_struct_hash(_order))
-        if len(sig) > 2 and sig[:2] != "0x":
-            sig = f"0x{sig}"
-        return sig
+        return prepend_zx(self.sign(self._create_struct_hash(_order)))
 
     def build_signed_order(self, data: OrderData) -> SignedOrder:
         """
