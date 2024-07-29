@@ -15,8 +15,6 @@ class TestUtils(TestCase):
     def test_prepend_zx(self):
         s = "302cd9abd0b5fcaa202a344437ec0b6660da984e24ae9ad915a592a90facf5a51bb8a873cd8d270f070217fea1986531d5eec66f1162a81f66e026db653bf7ce1c"
         self.assertEqual("0x" + s, prepend_zx(s))
-        
+
         s = "02ca1d1aa31103804173ad1acd70066cb6c1258a4be6dada055111f9a7ea4e55"
         self.assertEqual("0x" + s, prepend_zx(s))
-
-        

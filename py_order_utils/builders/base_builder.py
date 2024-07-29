@@ -3,6 +3,7 @@ from ..utils import normalize_address, prepend_zx
 from poly_eip712_structs import make_domain, EIP712Struct
 from eth_utils import keccak
 
+
 class BaseBuilder:
     def __init__(
         self, exchange_address: str, chain_id: int, signer: Signer, salt_generator
@@ -29,7 +30,9 @@ class BaseBuilder:
         """
         Creates an EIP712 compliant struct hash for the Order
         """
-        return prepend_zx(keccak(order.signable_bytes(domain=self.domain_separator)).hex())
+        return prepend_zx(
+            keccak(order.signable_bytes(domain=self.domain_separator)).hex()
+        )
 
     def sign(self, struct_hash):
         """

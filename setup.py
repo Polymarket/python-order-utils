@@ -18,7 +18,7 @@ setuptools.setup(
         "eth-utils>=4.1.1",
         "eth-account>=0.13.0",
         "poly-eip712-structs",
-        "pytest"
+        "pytest",
     ],
     package_data={
         "py_order_utils": [
