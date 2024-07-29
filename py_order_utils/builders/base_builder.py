@@ -29,7 +29,10 @@ class BaseBuilder:
         """
         Creates an EIP712 compliant struct hash for the Order
         """
-        return "0x" + keccak(order.signable_bytes(domain=self.domain_separator)).hex()
+        struct_hash = keccak(order.signable_bytes(domain=self.domain_separator)).hex()
+        if len(struct_hash) > 2 and struct_hash[:2] != "0x":
+            struct_hash = f"0x{struct_hash}"
+        return struct_hash
 
     def sign(self, struct_hash):
         """
