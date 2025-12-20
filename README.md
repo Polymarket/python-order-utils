@@ -19,10 +19,16 @@ from py_order_utils.builders import OrderBuilder
 from py_order_utils.signer import Signer
 from pprint import pprint
 
+def require_env(name: str) -> str:
+    try:
+        return os.environ[name]
+    except KeyError:
+        raise RuntimeError(f"Missing required environment variable: {name}")
+
 def main():
-    exchange_address = "0x...."
-    chain_id = 80002
-    signer = Signer("0x....")
+    exchange_address = require_env("EXCHANGE_ADDRESS")
+    chain_id = int(require_env("CHAIN_ID"))
+    signer = Signer(require_env("PRIVATE_KEY"))
     builder = OrderBuilder(exchange_address, chain_id, signer)
 
     # Create and sign the order
