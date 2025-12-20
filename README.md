@@ -15,14 +15,17 @@ pip install py-order-utils
 ### Usage
 
 ```py
+import os
+
 from py_order_utils.builders import OrderBuilder
+from py_order_utils.models import OrderData
 from py_order_utils.signer import Signer
 from pprint import pprint
 
 def main():
-    exchange_address = "0x...."
-    chain_id = 80002
-    signer = Signer("0x....")
+    exchange_address = os.environ["EXCHANGE_ADDRESS"]
+    chain_id = int(os.environ["CHAIN_ID"])
+    signer = Signer(os.environ["PRIVATE_KEY"])
     builder = OrderBuilder(exchange_address, chain_id, signer)
 
     # Create and sign the order
