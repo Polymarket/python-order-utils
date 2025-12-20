@@ -4,7 +4,7 @@
     <img src='https://img.shields.io/pypi/v/py-order-utils.svg' alt='PyPI'/>
 </a>
 
-Python utilities used to generate and sign orders from Polymarket's Exchange
+Python utilities used to generate and sign orders for the Polymarket CLOB exchange
 
 ### Install
 
