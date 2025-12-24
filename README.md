@@ -15,7 +15,7 @@ pip install py-order-utils
 ### Usage
 
 ```py
-from py_order_utils.builders import OrderBuilder
+from py_order_utils.builders import OrderBuilder, OrderData
 from py_order_utils.signer import Signer
 from pprint import pprint
 
@@ -34,5 +34,8 @@ def main():
 
     # Generate the Order and Signature json to be sent to the CLOB API
     pprint(json.dumps(order.dict()))
+
+if __name__ == "__main__":
+    main()
 
 ```
