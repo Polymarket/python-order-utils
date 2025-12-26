@@ -32,7 +32,7 @@ def main():
         )
     )
 
-    # Generate the Order and Signature json to be sent to the CLOB API
+    # Generate the Order and Signature JSON to be sent to the CLOB API
     pprint(json.dumps(order.dict()))
 
 ```
