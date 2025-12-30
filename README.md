@@ -20,8 +20,8 @@ from py_order_utils.signer import Signer
 from pprint import pprint
 
 def main():
-    exchange_address = "0x...."
-    chain_id = 80002
+    exchange_address = "0x...."  # Polymarket Exchange contract address
+    chain_id = 80002  # Network chain id
     signer = Signer("0x....")
     builder = OrderBuilder(exchange_address, chain_id, signer)
 
