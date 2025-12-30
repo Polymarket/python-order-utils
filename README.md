@@ -6,6 +6,8 @@
 
 Python utilities used to generate and sign orders from Polymarket's Exchange
 
+[Polymarket CLOB Quickstart](https://docs.polymarket.com/developers/CLOB/quickstart)
+
 ### Install
 
 ```bash
